@@ -3,14 +3,20 @@ from langchain.prompts import PromptTemplate
 from pdf_parse import resume_texts
 import json
 import re
+from dotenv import load_dotenv 
 import time
 from datetime import datetime
 from pymongo import MongoClient
+import os
+
+load_dotenv()
+mongo_uri = os.getenv("MONGO_URI")
+
+# Connect to MongoDB
+client = MongoClient(mongo_uri)
 
 
 
-
-client = MongoClient('mongodb+srv://jaidityanair10:Jaiditya123@cluster0.dazhe.mongodb.net/')
 db = client['Resume']  # database name
 collection = db['Candidate']  # collection name
 
@@ -140,7 +146,7 @@ print(f"\nProcessing complete")
 
 # def process_resumes(directory='data', model="deepseek-r1:7b"):
 #     # MongoDB Connection
-#     client = MongoClient('mongodb+srv://jaidityanair10:Jaiditya123@cluster0.dazhe.mongodb.net/')
+#     client = MongoClient()
 #     db = client['Resume']  # database name
 #     collection = db['Candidate']  # collection name
 
@@ -264,7 +270,7 @@ print(f"\nProcessing complete")
 # from pymongo import MongoClient
 
 # # MongoDB setup
-# client = MongoClient('mongodb+srv://jaidityanair10:Jaiditya123@cluster0.dazhe.mongodb.net/')
+# client = MongoClient('')
 # db = client['Resume']  # Database name
 # collection = db['Candidate']  # Collection name
 

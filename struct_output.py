@@ -55,7 +55,7 @@
 #     experience: Optional[List[dict]]
 
 # # Connect to MongoDB
-# client = MongoClient('mongodb+srv://jaidityanair10:Jaiditya123@cluster0.dazhe.mongodb.net/')
+# client = MongoClient()
 # db = client['Resume']  # Database name
 # collection = db['Candidate']  # Collection name
 
@@ -124,7 +124,7 @@
 #     experience: Optional[List[CompanyInfo]]
 
 # # Connect to MongoDB
-# client = MongoClient('mongodb+srv://jaidityanair10:Jaiditya123@cluster0.dazhe.mongodb.net/')
+# client = MongoClient())
 # db = client['Resume']  # Database name
 # collection = db['Candidate']  # Collection name
 
@@ -170,8 +170,12 @@ from pymongo import MongoClient
 from datetime import datetime
 from pdf_parse import resume_texts
 import time
+from dotenv import load_dotenv 
 from dateutil import parser
+import os
 
+load_dotenv()
+mongo_uri = os.getenv("MONGO_URI")
 
 # Define schema for structured output
 class CompanyInfo(BaseModel):
@@ -193,7 +197,7 @@ class ResumeInfo(BaseModel):
     experience: Optional[List[CompanyInfo]]
 
 # Connect to MongoDB
-client = MongoClient('mongodb+srv://jaidityanair10:Jaiditya123@cluster0.dazhe.mongodb.net/')
+client = MongoClient(mongo_uri)
 db = client['Resume']  # Database name
 collection = db['Candidate']  # Collection name
 
