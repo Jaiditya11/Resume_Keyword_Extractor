@@ -1,0 +1,7 @@
+/venv
+/data
+dataset.json
+.DS_Store
+.env
+
+dump.txt
