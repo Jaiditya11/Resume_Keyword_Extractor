@@ -32,67 +32,7 @@
 # resume_info = ResumeInfo.model_validate_json(response.message.content)
 # print(resume_info)
 
-###########################################################################################################
-# import ollama
-# from pydantic import BaseModel
-# from typing import List, Optional
-# from pymongo import MongoClient
-# from datetime import datetime
-# from pdf_parse import resume_texts
-# import time
 
-# # Define schema for structured output
-# class ResumeInfo(BaseModel):
-#     name: Optional[str]
-#     email: Optional[str]
-#     phone: Optional[str]
-#     location: Optional[str]
-#     highest_qualification: Optional[str]
-#     marital_status: Optional[str]
-#     current_company: Optional[List[dict]]
-#     education: Optional[List[str]]
-#     skills: Optional[List[str]]
-#     experience: Optional[List[dict]]
-
-# # Connect to MongoDB
-# client = MongoClient()
-# db = client['Resume']  # Database name
-# collection = db['Candidate']  # Collection name
-
-# print(f"Found {len(resume_texts)} resumes to process")
-
-# for i, resume_text in enumerate(resume_texts, 1):
-#     print(f"\n=== Processing Resume {i} ===")
-#     start_time = time.time()
-    
-#     response = ollama.chat(
-#         messages=[
-#             {
-#                 'role': 'user',
-#                 'content': f"""
-#                 Extract structured information from this resume text:
-#                 {resume_text}
-#                 """,
-#             }
-#         ],
-#         model='llama3.1:8b',
-#         format=ResumeInfo.model_json_schema(),
-#     )
-    
-#     try:
-#         resume_info = ResumeInfo.model_validate_json(response.message.content)
-#         resume_dict = resume_info.model_dump()
-#         resume_dict['timestamp'] = datetime.now().isoformat()
-        
-#         collection.insert_one(resume_dict)
-#         print(f"Successfully processed and stored resume {i}")
-#     except Exception as e:
-#         print(f"Error processing resume {i}: {e}")
-    
-#     end_time = time.time()
-#     print(f"Time taken to process resume {i}: {end_time - start_time:.2f} seconds")
-
-# print("\nProcessing complete")
 
 #####################################################################################################
 
@@ -218,16 +158,11 @@ for i, resume_text in enumerate(resume_texts, 1):
                 """,
             }
         ],
-        model='qwen2.5-coder',
+        model='qwen2.5:7b',
+        options={'temperature': 0.1},
         format=ResumeInfo.model_json_schema(),
     )
-    # def extract_end_date(duration: str) -> datetime: 
-    #     try:
-    #         if "till date" in duration.lower():
-    #             return datetime.today()  # Assume it's the current job
-    #         return parser.parse(duration.split(" to ")[-1])  # Extract end date
-    #     except Exception:
-    #        return datetime.min  # Default to the earliest date if parsing fails
+
  
  
     try:
